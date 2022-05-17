@@ -56,6 +56,7 @@ function App() {
   const [showSign, setShowSign] = useState(false);
   const [mined, setMined] = useState(false);
   const [transactionHash, setTransactionHash] = useState("");
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     isConnected();
@@ -102,9 +103,8 @@ function App() {
     .then(res => res.json());
     //console.log(response);  
     const arrRes = response.result;
-    //console.log(arrRes);
+    //console.log(arrRes); 
     const arrHis = arrRes.filter((trans) => trans.to.toLowerCase() === contractAddress.toLowerCase());
-    // console.log(nowDataHistory);
     let arr = [];  
     arrHis.forEach(async (trans) => {
       const timestamp = new Date(trans.timeStamp * 1000);
@@ -125,7 +125,7 @@ function App() {
       arr.sort((a, b) => {
         return a.blockNumber - b.blockNumber
       });
-      //console.log(arr);
+      console.log(arr);
       setDataHistory(arr);  
     });
   }
@@ -146,7 +146,8 @@ function App() {
       await getData();
       
     } catch (error) {
-      console.log(error);
+      console.log("error:", error);
+      setError(true);
     }
   }
 
@@ -174,6 +175,8 @@ function App() {
         setTransactionHash(sendHash.hash);
         console.log('send hash edit successfully!');
       } catch (error) {
+        console.log(error);
+        setError(true);
         setTodoEditingId('');
       }
       getData();
@@ -215,6 +218,7 @@ function App() {
       
     } catch (error) {
       console.log(error);
+      setError(true);
     }
   }
 
@@ -236,6 +240,7 @@ function App() {
       
     } catch (error) {
       console.log(error);
+      setError(true);
     }
   }
 
@@ -270,6 +275,8 @@ function App() {
           showSign={showSign} 
           mined={mined} 
           transactionHash={transactionHash}
+          error={error}
+          setError={setError}
           getData={getData}
           setShowDialog={setShowDialog}
         />}

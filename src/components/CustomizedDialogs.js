@@ -50,7 +50,7 @@ BootstrapDialogTitle.propTypes = {
 };
 
 export default function CustomizedDialogs(props) {
-  const { showSign, mined, transactionHash, getData, setShowDialog } = props;
+  const { showSign, mined, transactionHash, getData, setShowDialog, error, setError } = props;
 
   return (
     <div>
@@ -59,22 +59,24 @@ export default function CustomizedDialogs(props) {
         open={true}
       >
         <BootstrapDialogTitle id="customized-dialog-title">
-          {mined && 'Appointment Confirmed'}
-          {!mined && !showSign && 'Confirming Your Appointment...'}
-          {!mined && showSign && 'Please Sign to Confirm'}
+          {mined && !error && 'Appointment Confirmed'}
+          {!mined && !error &&  !showSign && 'Confirming Your Appointment...'}
+          {!mined && !error && showSign && 'Please Sign to Confirm'}
+          {error && 'ERROR'}
         </BootstrapDialogTitle>
         <DialogContent dividers>
-          {mined && <div>
+          {mined && !error && <div>
             Your appointment has been confirmed and is on the blockchain.<br /><br />
             <a target="_blank" href={`https://rinkeby.etherscan.io/tx/${transactionHash}`}>View on Etherscan</a>
             </div>}
-          {!mined && !showSign && <div><p>Please wait while we confirm your appoinment on the blockchain....</p></div>}
-          {!mined && showSign && <div><p>Please sign the transaction to confirm your appointment.</p></div>}
+          {!mined && !showSign && !error && <div><p>Please wait while we confirm your appoinment on the blockchain....</p></div>}
+          {!mined && showSign && !error && <div><p>Please sign the transaction to confirm your appointment.</p></div>}
+          {error && <div><p>An error has occurred!</p></div>}
           <div className='circle'>
-            <CircularIndeterminate />
+            {!mined && !error && <CircularIndeterminate />}
           </div>
         </DialogContent>
-        {mined && <DialogActions>
+        {mined || error && <DialogActions>
           <Button autoFocus onClick={() => {
             setShowDialog(false);
             getData();
