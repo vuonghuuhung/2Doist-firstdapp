@@ -125,7 +125,6 @@ function App() {
       arr.sort((a, b) => {
         return a.blockNumber - b.blockNumber
       });
-      console.log(arr);
       setDataHistory(arr);  
     });
   }
@@ -143,7 +142,6 @@ function App() {
       setMined(true);
       setTransactionHash(sendHash.hash);
       console.log('send hash edit successfully!');
-      await getData();
       
     } catch (error) {
       console.log("error:", error);
@@ -179,7 +177,6 @@ function App() {
         setError(true);
         setTodoEditingId('');
       }
-      getData();
       
     }
   }
@@ -214,8 +211,6 @@ function App() {
       setMined(true);
       setTransactionHash(sendHash.hash);
       console.log('send hash clear successfully!');
-      await getData();
-      
     } catch (error) {
       console.log(error);
       setError(true);
@@ -236,8 +231,6 @@ function App() {
       setMined(true);
       setTransactionHash(sendHash.hash);
       console.log('send hash clear successfully!');
-      await getData();
-      
     } catch (error) {
       console.log(error);
       setError(true);
@@ -277,7 +270,6 @@ function App() {
           transactionHash={transactionHash}
           error={error}
           setError={setError}
-          getData={getData}
           setShowDialog={setShowDialog}
         />}
     </div>
