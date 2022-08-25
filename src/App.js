@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import detectEthereumProvider from '@metamask/detect-provider';
-import { create } from 'ipfs-http-client';
 import { ethers } from 'ethers';
 import Todolist from './artifact/contracts/Todolist.sol/Todolist.json';
 // import css
@@ -14,9 +13,25 @@ import Footer from './components/Footer';
 import HistoryList from './components/HistoryList';
 import CustomizedDialogs from './components/CustomizedDialogs';
 
+var Buffer = require('buffer/').Buffer
 const toBuffer = require('it-to-buffer');  
+const ipfsClient = require('ipfs-http-client');
 
-const client = new create("https://ipfs.infura.io:5001/api/v0");
+const projectId = '2DkLZ6kFX8fKMr7xpZQcRBPI9sR';   // <---------- your Infura Project ID
+
+const projectSecret = '8744f6801b133862af9cb1b21fff16a8';  // <---------- your Infura Secret
+// (for security concerns, consider saving these values in .env files)
+
+const auth = 'Basic ' + Buffer.from(projectId + ':' + projectSecret).toString('base64');
+
+const client = ipfsClient.create({
+    host: 'ipfs.infura.io',
+    port: 5001,
+    protocol: 'https',
+    headers: {
+        authorization: auth,
+    },
+});
 
 const contractAddress = "0xA013D0061Dd7eD96130E773099328d4884e07675";
 const contractAbi = Todolist.abi;
