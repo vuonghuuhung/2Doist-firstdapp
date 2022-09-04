@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 
 const History = (props) => {
     const { obj } = props;
+    console.log(obj);
     const [isOpen, setIsOpen] = useState(false);
 
     const parentRef = useRef();
