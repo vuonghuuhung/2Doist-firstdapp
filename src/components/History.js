@@ -30,13 +30,13 @@ const History = (props) => {
                             <tr>
                                 <td>blockhash</td>
                                 <td>
-                                    <a target={"_blank"} href={`https://rinkeby.etherscan.io/block/${obj.blockNumber}`}>{obj.blockHash}</a>
+                                    <a target={"_blank"} href={`https://goerli.etherscan.io/block/${obj.blockNumber}`}>{obj.blockHash}</a>
                                 </td>
                             </tr>
                             <tr>
                                 <td>txhash</td>
                                 <td>
-                                    <a target={"_blank"} href={`https://rinkeby.etherscan.io/tx/${obj.txHash}`}>{obj.txHash}</a>
+                                    <a target={"_blank"} href={`https://goerli.etherscan.io/tx/${obj.txHash}`}>{obj.txHash}</a>
                                 </td>
                             </tr>
                             <tr>

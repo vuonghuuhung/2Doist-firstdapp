@@ -67,7 +67,7 @@ export default function CustomizedDialogs(props) {
         {!error && <DialogContent dividers>
           {mined && !error && <div>
             Your appointment has been confirmed and is on the blockchain.<br /><br />
-            <a target="_blank" href={`https://rinkeby.etherscan.io/tx/${transactionHash}`}>View on Etherscan</a>
+            <a target="_blank" href={`https://goerli.etherscan.io/tx/${transactionHash}`}>View on Etherscan</a>
             </div>}
           {!mined && !showSign && <div><p>Please wait while we confirm your appoinment on the blockchain....</p></div>}
           {!mined && showSign && <div><p>Please sign the transaction to confirm your appointment.</p></div>}
