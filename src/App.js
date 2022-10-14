@@ -34,7 +34,7 @@ const client = ipfsClient.create({
   },
 });
 
-const contractAddress = "0xA013D0061Dd7eD96130E773099328d4884e07675";
+const contractAddress = "0xE1aad01694d1d4AAe375E7c6A3c115F7760d09a4";
 const contractAbi = Todolist.abi;
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const contract = new ethers.Contract(
@@ -115,12 +115,14 @@ function App() {
 
   const getData = async () => {
     const result = await contract.getLastHash();
+    console.log(result);
     const bufferResult = await toBuffer(client.cat(result));
     const finalRes = JSON.parse(new TextDecoder().decode(bufferResult));
+    console.log(finalRes);
     setTodosList(finalRes);
 
     const response = await fetch(
-      `https://api-rinkeby.etherscan.io/api?module=account&action=txlist&address=${nowAccount}&startblock=0&endblock=99999999&page=1&offset=10000&sort=asc&apikey=28S2UTSIUZCF5FSGXVJ9RWZQGNS6PEV9R2`
+      `https://api-goerli.etherscan.io/api?module=account&action=txlist&address=${nowAccount}&startblock=0&endblock=99999999&page=1&offset=10000&sort=asc&apikey=28S2UTSIUZCF5FSGXVJ9RWZQGNS6PEV9R2`
     ).then((res) => res.json());
     //console.log(response);
     const arrRes = response.result;
